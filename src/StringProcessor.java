@@ -6,10 +6,12 @@ public class StringProcessor {
 			Predicate<String> filter,
 			Function<String, String> transformer,
 			Consumer<String> printer) {
-		strings.stream()
-				.filter(filter)
-				.map(transformer)
-				.forEach(printer);
+		for (String word : strings) {
+			if (filter.test(word)) {
+				String changedWord = transformer.apply(word);
+				printer.accept(changedWord);
+			}
+		}
 	}
 
 	public static void main(String[] args) {

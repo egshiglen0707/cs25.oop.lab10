@@ -26,10 +26,7 @@ class Product {
 
 	@Override
 	public String toString() {
-		String priceText = price == Math.rint(price)
-				? String.valueOf((int) price)
-				: String.valueOf(price);
-		return name + " (" + priceText + ")";
+		return name + " (" + (int) price + ")";
 	}
 }
 
@@ -37,7 +34,7 @@ public class ProductAnalyzer {
 	public static Map<String, List<Product>> analyze(List<Product> products) {
 		return products.stream()
 				.filter(product -> product.getPrice() > 1000)
-				.sorted(Comparator.comparing(Product::getPrice).reversed())
+				.sorted((first, second) -> Double.compare(second.getPrice(), first.getPrice()))
 				.collect(Collectors.groupingBy(
 						Product::getCategory,
 						LinkedHashMap::new,

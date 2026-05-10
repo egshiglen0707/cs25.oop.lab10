@@ -34,9 +34,15 @@ public class Library {
 
 		@Override
 		public Iterator<Book> iterator() {
-			return books.stream()
-					.filter(book -> book.getYear() >= minYear)
-					.iterator();
+			List<Book> recentBooks = new ArrayList<>();
+
+			for (Book book : books) {
+				if (book.getYear() >= minYear) {
+					recentBooks.add(book);
+				}
+			}
+
+			return recentBooks.iterator();
 		}
 	}
 
